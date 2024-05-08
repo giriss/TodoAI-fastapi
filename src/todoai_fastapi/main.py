@@ -38,9 +38,9 @@ TOOLS = [
       "parameters": {
         "type": "object",
         "properties": {
-          "index": {
+          "id": {
             "type": "integer",
-            "description": "If index is 0 then mark the latest todo. If index is 1 then mark the second most recent todo."
+            "description": "The id of the todo item to mark as done or completed"
           }
         }
       }
@@ -60,7 +60,7 @@ MESSAGES = [
 
 
 class Todo(BaseModel):
-    index: int
+    id: int
     title: str
     description: str | None
     completed: bool
