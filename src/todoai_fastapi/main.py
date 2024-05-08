@@ -10,42 +10,65 @@ from pydantic.json import pydantic_encoder
 API_KEY = os.environ["API_KEY"]
 MODEL = "gpt-4-turbo"
 TOOLS = [
-  {
-    "type": "function",
-    "function": {
-      "name": "add",
-      "description": "Add a new todo to the list",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "The brief and short description of the todo"
-          },
-          "description": {
-            "type": "string",
-            "description": "The concise and full description of the todo"
-          }
+    {
+        "type": "function",
+        "function": {
+            "name": "add",
+            "description": "Add a new todo to the list",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "The brief and short description of the todo"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The concise and full description of the todo"
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  {
-    "type": "function",
-    "function": {
-      "name": "mark_as_done",
-      "description": "Marks a todo from the list as done or completed. It marks only 1 entry. If need to mark multiple todos as done, then we need to call this function several times. If user uses word like first, then assume it's 0.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "The id of the todo item to mark as done or completed"
-          }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "mark_as_done",
+            "description": "Marks a todo from the list as done or completed. It marks only 1 entry. If need to mark multiple todos as done, then we need to call this function several times.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "The id of the todo item to mark as done or completed"
+                    }
+                }
+            }
         }
-      }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "filter",
+            "description": "Filters and shows only the todos that the user wants to see.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "type": "string",
+                        "description": "One or two words describing the category of the filter. For example if the user says 'show me todos related to sports and physical activities' then the category can be 'sports' or 'physical activities'",
+                    },
+                    "ids": {
+                        "type": "array",
+                        "description": "Array of the ids that fits the user's filter demands",
+                        "items": {
+                            "type": "integer",
+                        },
+                    },
+                },
+            },
+        },
     }
-  }
 ]
 MESSAGES = [
     {
