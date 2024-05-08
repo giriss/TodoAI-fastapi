@@ -26,7 +26,8 @@ TOOLS = [
                         "type": "string",
                         "description": "The concise and full description of the todo"
                     }
-                }
+                },
+                "required": ["title", "description"],
             }
         }
     },
@@ -42,7 +43,8 @@ TOOLS = [
                         "type": "integer",
                         "description": "The id of the todo item to mark as done or completed"
                     }
-                }
+                },
+                "required": ["id"],
             }
         }
     },
@@ -60,12 +62,13 @@ TOOLS = [
                     },
                     "ids": {
                         "type": "array",
-                        "description": "Array of the ids that fits the user's filter demands",
+                        "description": "Array of todo ids that fits the user's filter demands",
                         "items": {
                             "type": "integer",
                         },
                     },
                 },
+                "required": ["category", "ids"],
             },
         },
     }
@@ -73,7 +76,7 @@ TOOLS = [
 MESSAGES = [
     {
         "role": "system",
-        "content": "I need you to convert user requests to function calls for my 'todo' list app, users can either add new stuffs 'to do' or mark existing todos as completed. Please be smart, if user is using past tense, it probably means he wants to mark something as complete. Otherwise if it's in the future, it probably means he wants to add something to his to do list. If the user tells you to add new todo, remember to split contextually different items in different todos. Here are the user todos in JSON for more context: "
+        "content": "I need you to convert user requests to function calls for my 'todo' list app, users can either add new stuffs 'to do' or mark existing todos as completed. Please be smart, if user is using past tense, it probably means he wants to mark something as complete. Otherwise if it's in the future, it probably means he wants to add something to his to do list. If the user tells you to add new todo, remember to split contextually different items in different todos. If the user asks a question, he probably wants you to filter out some items for him. Here are the user todos in JSON for more context: "
     },
     {
         "role": "user",
